@@ -37,13 +37,20 @@ void print_display(const char* message, float parametro) {
 
     ssd1306_fill(&ssd, !cor);  // Limpa o display
     ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
-    ssd1306_draw_string(&ssd, message, 0, 20);  // Exibe a mensagem
-    ssd1306_draw_string(&ssd, parametro_solo, 40, 40);  // Exibe o valor do parâmetro
+    ssd1306_draw_string(&ssd, message, 0, 30);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, parametro_solo, 0, 40);  // Exibe o valor do parâmetro
     ssd1306_send_data(&ssd);  // Atualiza o display
 }
 
 // Função para exbir as informações iniciais no display
 void initial_print_display(){
+    ssd1306_fill(&ssd, !cor);  // Limpa o display
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 10);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "READ SOIL", 28, 25);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, "PARAMETER", 28, 40);
+    ssd1306_send_data(&ssd);  // Atualiza o display
+    sleep_ms(5000);
+
     ssd1306_fill(&ssd, !cor);  // Limpa o display
     ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
     ssd1306_draw_string(&ssd, "PARA INICIAR", 16, 20);  // Exibe a mensagem

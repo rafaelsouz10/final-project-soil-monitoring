@@ -28,30 +28,25 @@ void gpio_irq_handler(uint gpio, uint32_t events){
     last_time = current_time; // Atualiza o tempo do último evento
 
     switch(parameters){
-      case 0:
-        printf("Leitura Umidade Iniciada.\n");
+      case 0: //Leitura umidade
         umid_ok = true;
         cond_ok = false;
         parameters = 1;
         parameters_ok = false;
       break;
-      case 1:
-        printf("Leitura Temperatura Iniciada.\n");
+      case 1: //Leitura temperatura
         umid_ok = false;
         temp_ok = true;
         parameters = 2;
       break;
-      case 2:
-        printf("Leitura Condutividade Elétrica Iniciada.\n");
+      case 2: //Leitura condutividade elétrica
         temp_ok = false;
         cond_ok = true;
         parameters = 3;
       break;
       case 3:
-        printf("Leituras Finalizadas.\n");
         parameters_ok = true;
         parameters = 0;
-        
       break;
     }
   }

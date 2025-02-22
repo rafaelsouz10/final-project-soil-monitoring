@@ -40,17 +40,17 @@ int main() {
             if (umid_ok) {
                 umidade = map_umidade(vrx_value);
                 printf("Umidade: %.2f\n", umidade);
-                print_display("Umidade;", umidade);
+                print_display("UMIDADE;", umidade);
             }
             else if (temp_ok) {
                 temperatura = map_temperatura(vrx_value);
                 printf("Temperatura: %.2f\n", temperatura);
-                print_display("Temperatura", temperatura);
+                print_display("TEMPERATURA", temperatura);
             }
             else if (cond_ok) {
                 condutividade = map_condutividade(vrx_value);
                 printf("Condutividade: %.2f\n", condutividade);
-                print_display("Condutividade", condutividade);
+                print_display("CONDUTIVIDADE", condutividade);
             }
         }
         sleep_ms(500);
