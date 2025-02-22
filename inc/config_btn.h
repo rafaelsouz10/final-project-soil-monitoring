@@ -31,6 +31,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
       case 0:
         printf("Leitura Umidade Iniciada.\n");
         umid_ok = true;
+        cond_ok = false;
         parameters = 1;
         parameters_ok = false;
       break;
@@ -48,9 +49,6 @@ void gpio_irq_handler(uint gpio, uint32_t events){
       break;
       case 3:
         printf("Leituras Finalizadas.\n");
-        temp_ok = false;
-        cond_ok = false;
-        temp_ok = false;
         parameters_ok = true;
         parameters = 0;
         

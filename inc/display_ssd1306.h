@@ -42,13 +42,36 @@ void print_display(const char* message, float parametro) {
     ssd1306_send_data(&ssd);  // Atualiza o display
 }
 
+// Função para exbir as informações iniciais no display
 void initial_print_display(){
     ssd1306_fill(&ssd, !cor);  // Limpa o display
     ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
-    ssd1306_draw_string(&ssd, "BOTÃO A", 0, 20);  // Exibe a mensagem
-    ssd1306_draw_string(&ssd, "PARA INICIAR", 0, 40);  // Exibe o valor do parâmetro
+    ssd1306_draw_string(&ssd, "PARA INICIAR", 16, 20);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, "LEITURA", 36, 30);
+    ssd1306_draw_string(&ssd, "BOTAO A", 36, 40);  
     ssd1306_send_data(&ssd);  // Atualiza o display
 }
 
+// Função para exibir os parametros no display
+void display_info(float umidade, float temperatura, float condutividade) {
+    char buffer[20];  // Buffer para armazenar as strings formatadas
+
+    ssd1306_fill(&ssd, 0); // Limpa o display
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
+
+    // Formata e exibe a umidade
+    snprintf(buffer, sizeof(buffer), "Umid. %.2f %%", umidade);
+    ssd1306_draw_string(&ssd, buffer, 0, 20);  // Exibe na linha 1 (y = 0)
+
+    // Formata e exibe a temperatura
+    snprintf(buffer, sizeof(buffer), "Temp. %.2f C", temperatura);
+    ssd1306_draw_string(&ssd, buffer, 0, 30);  // Exibe na linha 2 (y = 10)
+
+    // Formata e exibe a condutividade
+    snprintf(buffer, sizeof(buffer), "Cond. %.2f dS/m", condutividade);
+    ssd1306_draw_string(&ssd, buffer, 0, 40);  // Exibe na linha 3 (y = 20)
+
+    ssd1306_send_data(&ssd);// Atualiza o display
+}
 
 #endif

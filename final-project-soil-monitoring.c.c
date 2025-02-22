@@ -27,36 +27,33 @@ int main() {
     setup_gpio_BTN_A();//Configuração inicial do botão A
     gpio_set_irq_enabled_with_callback(BTN_A, GPIO_IRQ_EDGE_FALL, true, &gpio_irq_handler);//Interrupção callback para botão A
     
+    initial_print_display();
     while (true) {
         
-        if(!parameters_ok){
-            initial_print_display();
+        if (parameters_ok){
+            printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
+            display_info(umidade, temperatura, condutividade); // Exibe as informações no display
         }else{
-            if (!umid_ok && !temp_ok && !cond_ok){
-                printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
-            }else{
-                adc_select_input(1);  // Seleciona o pino do joystick X
-                vrx_value = adc_read();  // Lê o valor do joystick (0 a 4095)
+            adc_select_input(1);  // Seleciona o pino do joystick X
+            vrx_value = adc_read();  // Lê o valor do joystick (0 a 4095)
 
-                if (umid_ok) {
-                    umidade = map_umidade(vrx_value);
-                    printf("Umidade: %.2f\n", umidade);
-                    print_display("Umidade;", umidade);
-                }
-                else if (temp_ok) {
-                    temperatura = map_temperatura(vrx_value);
-                    printf("Temperatura: %.2f\n", temperatura);
-                    print_display("Temperatura", temperatura);
-                }
-                else if (cond_ok) {
-                    condutividade = map_condutividade(vrx_value);
-                    printf("Condutividade: %.2f\n", condutividade);
-                    print_display("Condutividade", condutividade);
-                }
+            if (umid_ok) {
+                umidade = map_umidade(vrx_value);
+                printf("Umidade: %.2f\n", umidade);
+                print_display("Umidade;", umidade);
+            }
+            else if (temp_ok) {
+                temperatura = map_temperatura(vrx_value);
+                printf("Temperatura: %.2f\n", temperatura);
+                print_display("Temperatura", temperatura);
+            }
+            else if (cond_ok) {
+                condutividade = map_condutividade(vrx_value);
+                printf("Condutividade: %.2f\n", condutividade);
+                print_display("Condutividade", condutividade);
             }
         }
         sleep_ms(500);
     }
-    
     return 0;
 }
