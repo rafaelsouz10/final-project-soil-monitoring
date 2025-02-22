@@ -31,11 +31,24 @@ void display_init(){
     ssd1306_send_data(&ssd);
 }
 
-void print_display(const char* message){
-    ssd1306_fill(&ssd, !cor); // Limpa o display
-    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0); // Desenha uma string
-    ssd1306_draw_string(&ssd, message,0, 20);
-    ssd1306_send_data(&ssd); // Atualiza o display
+void print_display(const char* message, float parametro) {
+    char parametro_solo[10];  // Buffer para armazenar a string formatada
+    snprintf(parametro_solo, sizeof(parametro_solo), "%.2f", parametro);  // Converte float para string com 2 casas decimais
+
+    ssd1306_fill(&ssd, !cor);  // Limpa o display
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
+    ssd1306_draw_string(&ssd, message, 0, 20);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, parametro_solo, 40, 40);  // Exibe o valor do parâmetro
+    ssd1306_send_data(&ssd);  // Atualiza o display
 }
+
+void initial_print_display(){
+    ssd1306_fill(&ssd, !cor);  // Limpa o display
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "BOTÃO A", 0, 20);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, "PARA INICIAR", 0, 40);  // Exibe o valor do parâmetro
+    ssd1306_send_data(&ssd);  // Atualiza o display
+}
+
 
 #endif

@@ -1,8 +1,8 @@
 #include <stdio.h>            
 #include "pico/stdlib.h"
 #include <inc/config_btn.h>
-#include <inc/display_ssd1306.h>
 #include <inc/joystick.h>
+#include <inc/display_ssd1306.h>
 
 // Definição dos pinos dos LEDs PWM
 #define LED_PIN_RED 13  
@@ -29,26 +29,32 @@ int main() {
     
     while (true) {
         
-        if (!umid_ok && !temp_ok && !cond_ok){
-            printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
+        if(!parameters_ok){
+            initial_print_display();
         }else{
-            adc_select_input(1);  // Seleciona o pino do joystick X
-            vrx_value = adc_read();  // Lê o valor do joystick (0 a 4095)
+            if (!umid_ok && !temp_ok && !cond_ok){
+                printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
+            }else{
+                adc_select_input(1);  // Seleciona o pino do joystick X
+                vrx_value = adc_read();  // Lê o valor do joystick (0 a 4095)
 
-            if (umid_ok) {
-                umidade = map_umidade(vrx_value);
-                printf("Umidade: %.2f\n", umidade);
-            }
-            else if (temp_ok) {
-                temperatura = map_temperatura(vrx_value);
-                printf("Temperatura: %.2f\n", temperatura);
-            }
-            else if (cond_ok) {
-                condutividade = map_condutividade(vrx_value);
-                printf("Condutividade: %.2f\n", condutividade);
+                if (umid_ok) {
+                    umidade = map_umidade(vrx_value);
+                    printf("Umidade: %.2f\n", umidade);
+                    print_display("Umidade;", umidade);
+                }
+                else if (temp_ok) {
+                    temperatura = map_temperatura(vrx_value);
+                    printf("Temperatura: %.2f\n", temperatura);
+                    print_display("Temperatura", temperatura);
+                }
+                else if (cond_ok) {
+                    condutividade = map_condutividade(vrx_value);
+                    printf("Condutividade: %.2f\n", condutividade);
+                    print_display("Condutividade", condutividade);
+                }
             }
         }
-
         sleep_ms(500);
     }
     

@@ -10,7 +10,7 @@
 static volatile uint32_t last_time = 0; // Armazena o tempo do último evento (em microssegundos)
 static int parameters = 0;
 float umidade = 0.0, temperatura = 0.0, condutividade = 0.0;
-bool umid_ok = false, temp_ok = false, cond_ok = false;
+bool umid_ok = false, temp_ok = false, cond_ok = false, parameters_ok = false;
 
 // Configuração inicial ds botões
 void setup_gpio_BTN_A() {
@@ -32,6 +32,7 @@ void gpio_irq_handler(uint gpio, uint32_t events){
         printf("Leitura Umidade Iniciada.\n");
         umid_ok = true;
         parameters = 1;
+        parameters_ok = false;
       break;
       case 1:
         printf("Leitura Temperatura Iniciada.\n");
@@ -50,7 +51,9 @@ void gpio_irq_handler(uint gpio, uint32_t events){
         temp_ok = false;
         cond_ok = false;
         temp_ok = false;
+        parameters_ok = true;
         parameters = 0;
+        
       break;
     }
   }
