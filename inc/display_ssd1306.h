@@ -98,11 +98,12 @@ void display_info(float umidade, float temperatura, float condutividade) {
     ssd1306_send_data(&ssd);// Atualiza o display
 }
 
+//Função para detalhes de umidade do solo
 void detail_umi(float umidade){
     char buffer[20];  // Buffer para armazenar as strings formatadas
 
     ssd1306_fill(&ssd, 0); // Limpa o display
-    ssd1306_draw_string(&ssd, "DETALHES UMID", 15, 0);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "DETALHES UMID", 15, 0);
 
     // Formata e exibe a umidade
     snprintf(buffer, sizeof(buffer), "Umid. %.2f %%", umidade);
@@ -133,11 +134,12 @@ void detail_umi(float umidade){
     ssd1306_send_data(&ssd);// Atualiza o display
 }
 
+//Função para detalhes de temperatura do solo
 void detail_temp(float temperatura){
     char buffer[20];  // Buffer para armazenar as strings formatadas
 
     ssd1306_fill(&ssd, 0); // Limpa o display
-    ssd1306_draw_string(&ssd, "DETALHES TEMP", 15, 0);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "DETALHES TEMP", 15, 0);
 
     // Formata e exibe a temperatura
     snprintf(buffer, sizeof(buffer), "Temp. %.2f C", temperatura);
@@ -168,11 +170,12 @@ void detail_temp(float temperatura){
     ssd1306_send_data(&ssd);// Atualiza o display
 }
 
+//Função para detalhes de condutividade elétrica do solo
 void detail_cond(float condutividade){
     char buffer[20];  // Buffer para armazenar as strings formatadas
 
     ssd1306_fill(&ssd, 0); // Limpa o display
-    ssd1306_draw_string(&ssd, "DETALHES COND", 15, 0);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "DETALHES COND", 15, 0); 
 
     // Formata e exibe a condutividade
     snprintf(buffer, sizeof(buffer), "Cond. %.2f dS/m", condutividade);

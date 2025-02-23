@@ -16,16 +16,18 @@ int main() {
     initial_print_display();
     while (true) {
         
+        //se todos os parâmetros estiverem salvos, mostra seus respectivos valores no display
         if (parameters_ok){
             printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
             
+            //se o botão B ainda pressionado, continua mostrando os valores salvos dos parâmetros no display
             if (!BTN_B_PRESS) display_info(umidade, temperatura, condutividade); 
-            else {
+            else { //se o botão B for pressionado, é mostrado os detalhes relacionado a cada parâmetro com uma dica sobre o solo no display
                 if (detail_parameters == 0) detail_umi(umidade);
                 else if (detail_parameters == 1) detail_temp(temperatura);
                 else if (detail_parameters == 2) detail_cond(condutividade);
             }
-        } else {
+        } else { // seção para que os parâmetros sejam lidos e salvos (o joystick que simula os parâmetros do solo)
             adc_select_input(1);  // Seleciona o pino do joystick X
             vrx_value = adc_read();  // Lê o valor do joystick (0 a 4095)
 
