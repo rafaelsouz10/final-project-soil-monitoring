@@ -48,18 +48,18 @@ void display_init(){
     ssd1306_send_data(&ssd);
 }
 
-// Função para exbir as informações iniciais no display
+// Função para exbir as informações iniciais no display durante 3 segundos
 void initial_print_display(){
     ssd1306_fill(&ssd, !cor);  // Limpa o display
-    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 10);  // Desenha uma string
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 10); // Desenha uma string
     ssd1306_draw_string(&ssd, "READ SOIL", 28, 25);  // Exibe a mensagem
     ssd1306_draw_string(&ssd, "PARAMETER", 28, 40);
     ssd1306_send_data(&ssd);  // Atualiza o display
     sleep_ms(3000);
 
     ssd1306_fill(&ssd, !cor);  // Limpa o display
-    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);  // Desenha uma string
-    ssd1306_draw_string(&ssd, "PARA INICIAR", 16, 20);  // Exibe a mensagem
+    ssd1306_draw_string(&ssd, "EMBARCATECH", 20, 0);    // Desenha uma string
+    ssd1306_draw_string(&ssd, "PARA INICIAR", 16, 20); // Exibe a mensagem
     ssd1306_draw_string(&ssd, "LEITURA", 36, 30);
     ssd1306_draw_string(&ssd, "BOTAO A", 36, 40);  
     ssd1306_send_data(&ssd);  // Atualiza o display
