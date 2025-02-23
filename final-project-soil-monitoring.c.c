@@ -1,5 +1,6 @@
 #include <stdio.h>            
 #include "pico/stdlib.h"
+#include <inc/leds_pwm.h>
 #include <inc/config_btn.h>
 #include <inc/joystick.h>
 #include <inc/display_ssd1306.h>
@@ -7,16 +8,16 @@
 int main() {
     stdio_init_all();    // Inicializa entradas e saídas.
     joystick_init();    //Inicializa os pinos do joystick
-    setup_gpio_leds(); //Inicializa os leds
+    pwm_leds_init();   //Inicializa os leds pwm 
     display_init();   //Inicializa o display
 
-    setup_gpio_BTN_A();//Configuração inicial do botão A
+    setup_gpio_BTN();//Configuração inicial dos botões A e B
     gpio_set_irq_interrupt_btn();// Configuração da interrupção com callback para botão
     
     initial_print_display();
     while (true) {
         
-        //se todos os parâmetros estiverem salvos, mostra seus respectivos valores no display
+        //se todos os parâmetros estiverem salvos, é mostrado seus respectivos valores no display
         if (parameters_ok){
             printf("Umidade: %.2f\nTemperatura: %.2f\nCondutividade: %.2f\n\n", umidade, temperatura, condutividade);
             

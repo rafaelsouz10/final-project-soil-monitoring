@@ -13,7 +13,7 @@ int parameters = 0, detail_parameters = 3;
 bool umid_ok = false, temp_ok = false, cond_ok = false, parameters_ok = false, BTN_B_PRESS = false;
 
 // Configuração inicial ds botões
-void setup_gpio_BTN_A() {
+void setup_gpio_BTN() {
   //Botão A
   gpio_init(BTN_A);
   gpio_set_dir(BTN_A, GPIO_IN);
@@ -37,7 +37,6 @@ void gpio_irq_handler(uint gpio, uint32_t events){
       switch(parameters){
         case 0: //Leitura umidade
           umid_ok = true;
-          cond_ok = false;
           parameters = 1;
           parameters_ok = false;
         break;
@@ -56,7 +55,6 @@ void gpio_irq_handler(uint gpio, uint32_t events){
           parameters_ok = true;
           parameters = 0;
         break;
-        
       }    
     } else if (gpio == BTN_B) {
       if (parameters_ok) {
