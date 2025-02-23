@@ -19,6 +19,12 @@ void setup_gpio_leds(){
     gpio_set_dir(LED_PIN_GREEN, GPIO_OUT);
 }
 
+void leds_off(){
+    gpio_put(LED_PIN_GREEN, false);
+    gpio_put(LED_PIN_RED, false);
+    gpio_put(LED_PIN_BLUE, false);
+}
+
 #define I2C_PORT i2c1
 #define I2C_SDA 14
 #define I2C_SCL 15
@@ -96,6 +102,8 @@ void display_info(float umidade, float temperatura, float condutividade) {
     ssd1306_draw_string(&ssd, buffer, 0, 40);  // Exibe na linha 3 (y = 20)
 
     ssd1306_send_data(&ssd);// Atualiza o display
+
+    leds_off();//os leds permanecem desligados nesse estágio
 }
 
 //Função para detalhes de umidade do solo
@@ -109,27 +117,22 @@ void detail_umi(float umidade){
     snprintf(buffer, sizeof(buffer), "Umid. %.2f %%", umidade);
     ssd1306_draw_string(&ssd, buffer, 0, 20);  // Exibe na linha 1 (y = 0)
 
-    if (umidade < 20) {
-        gpio_put(LED_PIN_BLUE, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_RED, false);
+    leds_off();//os leds permanecem desligados nesse estágio
 
+    if (umidade < 20) {
         ssd1306_draw_string(&ssd, "Solo seco", 0, 40);
         ssd1306_draw_string(&ssd, "Irrigar", 0, 50);
+
+        gpio_put(LED_PIN_BLUE, true);
     } else if (umidade >= 20 && umidade <= 60) {
-        gpio_put(LED_PIN_GREEN, true);
-        gpio_put(LED_PIN_BLUE, false);
-        gpio_put(LED_PIN_RED, true);
-
         ssd1306_draw_string(&ssd, "Umidade ideal", 0, 40);
-    
-    } else if (umidade > 60) {
-        gpio_put(LED_PIN_RED, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_BLUE, false);
 
+        gpio_put(LED_PIN_GREEN, true);
+    } else if (umidade > 60) {
         ssd1306_draw_string(&ssd, "Solo encharcado", 0, 40);
         ssd1306_draw_string(&ssd, "Reduzir agua", 0, 50);
+
+        gpio_put(LED_PIN_RED, true);
     }   
     ssd1306_send_data(&ssd);// Atualiza o display
 }
@@ -145,27 +148,23 @@ void detail_temp(float temperatura){
     snprintf(buffer, sizeof(buffer), "Temp. %.2f C", temperatura);
     ssd1306_draw_string(&ssd, buffer, 0, 20);  // Exibe na linha 1 (y = 0)
 
-    if (temperatura < 10) {
-        gpio_put(LED_PIN_BLUE, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_RED, false);
+    leds_off();//os leds permanecem desligados nesse estágio
 
+    if (temperatura < 10) {
         ssd1306_draw_string(&ssd, "Solo frio", 0, 40);
         ssd1306_draw_string(&ssd, "Cobrir solo", 0, 50);
-    } else if (temperatura >= 10 && temperatura <= 30) {
-        gpio_put(LED_PIN_GREEN, true);
-        gpio_put(LED_PIN_BLUE, false);
-        gpio_put(LED_PIN_RED, false);
 
+        gpio_put(LED_PIN_BLUE, true);
+    } else if (temperatura >= 10 && temperatura <= 30) {
         ssd1306_draw_string(&ssd, "Temperatura", 0, 40);
         ssd1306_draw_string(&ssd, "ideal", 0, 50);
-    } else if (temperatura > 30) {
-        gpio_put(LED_PIN_RED, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_BLUE, false);
 
+        gpio_put(LED_PIN_GREEN, true);
+    } else if (temperatura > 30) {
         ssd1306_draw_string(&ssd, "Solo quente", 0, 40);
         ssd1306_draw_string(&ssd, "Proteger plantas", 0, 50);
+
+        gpio_put(LED_PIN_RED, true);
     } 
     ssd1306_send_data(&ssd);// Atualiza o display
 }
@@ -181,27 +180,23 @@ void detail_cond(float condutividade){
     snprintf(buffer, sizeof(buffer), "Cond. %.2f dS/m", condutividade);
     ssd1306_draw_string(&ssd, buffer, 0, 20);  // Exibe na linha 1 (y = 0)
 
-    if (condutividade < 0.5) {
-        gpio_put(LED_PIN_BLUE, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_RED, false);
+    leds_off(); //os leds permanecem desligados nesse estágio
 
+    if (condutividade < 0.5) {
         ssd1306_draw_string(&ssd, "Pouco nutriente", 0, 40);
         ssd1306_draw_string(&ssd, "Adubar solo", 0, 50);
-    } else if (condutividade >= 0.5 && condutividade <= 3.0) {
-        gpio_put(LED_PIN_GREEN, true);
-        gpio_put(LED_PIN_BLUE, false);
-        gpio_put(LED_PIN_RED, false);
 
+        gpio_put(LED_PIN_BLUE, true);
+    } else if (condutividade >= 0.5 && condutividade <= 3.0) {
         ssd1306_draw_string(&ssd, "Condutividade", 0, 40);
         ssd1306_draw_string(&ssd, "ideal", 0, 50);
-    } else if (condutividade > 3.0) {
-        gpio_put(LED_PIN_RED, true);
-        gpio_put(LED_PIN_GREEN, false);
-        gpio_put(LED_PIN_BLUE, false);
 
+        gpio_put(LED_PIN_GREEN, true);
+    } else if (condutividade > 3.0) {
         ssd1306_draw_string(&ssd, "Salinidade alta", 0, 40);
         ssd1306_draw_string(&ssd, "Lavar solo", 0, 50);
+
+        gpio_put(LED_PIN_RED, true);
     }  
     ssd1306_send_data(&ssd);// Atualiza o display
 }

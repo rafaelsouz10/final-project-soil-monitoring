@@ -9,7 +9,7 @@
 
 // Variáveis globais 
 static volatile uint32_t last_time = 0; // Armazena o tempo do último evento (em microssegundos)
-int parameters = 0, detail_parameters = 0;
+int parameters = 0, detail_parameters = 3;
 bool umid_ok = false, temp_ok = false, cond_ok = false, parameters_ok = false, BTN_B_PRESS = false;
 
 // Configuração inicial ds botões
@@ -52,16 +52,19 @@ void gpio_irq_handler(uint gpio, uint32_t events){
           parameters = 3;
         break;
         case 3:
+          cond_ok = false; 
           parameters_ok = true;
           parameters = 0;
         break;
+        
       }    
     } else if (gpio == BTN_B) {
       if (parameters_ok) {
         BTN_B_PRESS = true;
         if (detail_parameters == 0) detail_parameters = 1;
         else if (detail_parameters == 1) detail_parameters = 2;
-        else if (detail_parameters == 2) detail_parameters = 0;
+        else if (detail_parameters == 2) detail_parameters = 3;
+        else if (detail_parameters == 3) detail_parameters = 0;
       }
     }
   }

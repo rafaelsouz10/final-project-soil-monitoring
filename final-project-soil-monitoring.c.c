@@ -26,6 +26,7 @@ int main() {
                 if (detail_parameters == 0) detail_umi(umidade);
                 else if (detail_parameters == 1) detail_temp(temperatura);
                 else if (detail_parameters == 2) detail_cond(condutividade);
+                else display_info(umidade, temperatura, condutividade);
             }
         } else { // seção para que os parâmetros sejam lidos e salvos (o joystick que simula os parâmetros do solo)
             adc_select_input(1);  // Seleciona o pino do joystick X
@@ -46,6 +47,8 @@ int main() {
                 printf("Condutividade: %.2f\n", condutividade);
                 print_display("CONDUTIVIDADE", condutividade);
             }
+            
+            leds_off(); //os leds permanecem desligados nesse estágio
         }
         sleep_ms(500);
     }
