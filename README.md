@@ -6,7 +6,7 @@
 
 Projeto final do **EmbarcaTech**, que visa implementar um sistema de monitoramento dos parâmetros do solo (umidade, temperatura e condutividade elétrica) utilizando a placa BitDogLab. O sistema é interativo, permitindo ao usuário simular a leitura dos parâmetros e visualizar os resultados no display OLED.
 
-imagem vai aqui
+![image](https://github.com/user-attachments/assets/0ec05929-7ebe-445f-ae6b-326197ce245c)
 
 ---
 
@@ -97,7 +97,7 @@ Abaixo está o mapeamento de conexões entre os componentes e a Raspberry Pi Pic
 #### 🛠️ Hardware Utilizado
 - **Microcontrolador:** Raspberry Pi Pico W
 - **Display:** OLED SSD1306 (I2C)
-- **Joystick Analógico** (VRX e VRY)
+- **Joystick Analógico** (VRX)
 - **Botões A e B**
 - **Led RGB**
 
