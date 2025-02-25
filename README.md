@@ -157,4 +157,4 @@ Abaixo está o mapeamento de conexões entre os componentes e a Raspberry Pi Pic
 
 ### 8. Vídeo Demonstrativo
 
-Click [AQUI](O lindo do vídeo irá aqui) para acessar o link do Vídeo Ensaio
+Click [AQUI](https://drive.google.com/file/d/1wGmQhErWBzgsxy2ykEN8cO1Y7qcORcDt/view?usp=sharing) para acessar o link do Vídeo Ensaio
